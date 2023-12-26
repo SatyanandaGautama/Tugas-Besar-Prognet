@@ -1,36 +1,37 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Slider;
 use Illuminate\Http\Request;
+use App\Blog;
 use Spipu\Html2Pdf\Html2Pdf;
-class SliderController extends Controller
+class BlogController extends Controller
 {
     public function cetak()
     {
-        $slider = SLider::all();
+        $blog = Blog::all();
         $html2pdf = new HTML2PDF('P', 'A4', 'de', false, 'UTF-8');
-        $doc = view('slider.CetakSlider', compact('slider'));
-        $html2pdf->pdf->SetTitle('Cetak Slider | PDF');
+        $doc = view('blog.CetakBlog', compact('blog'));
+        $html2pdf->pdf->SetTitle('Cetak Blog | PDF');
         $html2pdf->setDefaultFont('Times');
         $html2pdf->writeHTML($doc, false);
-        $html2pdf->Output('CETAK_SLIDER.pdf');
+        $html2pdf->Output('CETAK_BLOG.pdf');
     }
     public function index()
     {
-        $slider = Slider::all();
-        return view('slider.IndexSlider', compact('slider'));
+        $blog = Blog::all();
+        return view('blog.IndexBlog', compact('blog'));
     }
     public function insert()
     {
-        return view('slider.CreateSlider');
+        return view('blog.CreateBlog');
     }
     public function store(Request $request)
     { //Request $request membaca data yg dikirim melalui Post
-        $data = Slider::create($request->all()); //(Syarat name pada input form harus sama dengan nama field database)
+        $data = Blog::create($request->all()); //(Syarat name pada input form harus sama dengan nama field database)
         if (!empty($request->file('foto'))) { //Ambil data foto dari form create/tambah
             $name = md5($data->id);
-            $folder = 'private/storage/slider'; //File foto tersimpan pada folder slider pada folder storage, private
+            $folder = 'private/storage/blog'; //File foto tersimpan pada folder slider pada folder storage, private
             $extension = $request->file('foto')->getClientOriginalExtension();
             $file = $name . "." . $extension;
             //Jika foto sudah ada sebelumnya, hapus foto tersebut
@@ -43,20 +44,22 @@ class SliderController extends Controller
                 $data->save();
             }
         }
-        return redirect(URL('/slider'));
+        return redirect(URL('/blog'));
     }
     public function edit($id)
     {
-        $data = Slider::find($id);
-        return view('slider.EditSlider', compact('data'));
+        $data = Blog::find($id);
+        return view('blog.EditBlog', compact('data'));
     }
     public function update($id, Request $request)
     {
-        $data = Slider::find($id);
-        $data->judul = $request->judul;
+        $data = Blog::find($id);
+        $data->judul_blog = $request->judul_blog;
+        $data->tema_blog = $request->tema_blog;
+        $data->deskripsi = $request->deskripsi;
         if (!empty($request->file('foto'))) { //Ambil data foto dari form create/tambah
             $name = md5($data->id);
-            $folder = 'private/storage/slider'; //File foto tersimpan pada folder slider pada folder storage, private
+            $folder = 'private/storage/blog'; //File foto tersimpan pada folder slider pada folder storage, private
             $extension = $request->file('foto')->getClientOriginalExtension();
             $file = $name . "." . $extension;
             //Jika foto sudah ada sebelumnya, hapus foto tersebut
@@ -70,16 +73,16 @@ class SliderController extends Controller
             }
         }
         $data->save();
-        return redirect(URL('/slider'));
+        return redirect(URL('/blog'));
     }
     public function destroy($id, Request $request)
     {
-        $data = Slider::find($id);
+        $data = Blog::find($id);
         //Jika ada file foto, maka hapus file foto tersebut
         if (file_exists($data->foto)) {
             unlink($data->foto); //Menghapus file foto yang ada difolder
         }
         $data->delete();
-        return redirect(URL('/slider'));
+        return redirect(URL('/blog'));
     }
 }

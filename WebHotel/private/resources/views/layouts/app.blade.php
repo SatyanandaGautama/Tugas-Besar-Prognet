@@ -17,10 +17,6 @@
 <body>
     @guest
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-            </ul>
-            <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -29,10 +25,6 @@
         </div>
         @if (Route::has('register'))
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-                </ul>
-                <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -42,28 +34,38 @@
         @endif
     @else
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar -->
             <div class="bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
-                        class="fas fa-user-secret me-2"></i>{{ Auth::user()->name }}</div>
+                <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
+                    <i class="fas fa-user-secret me-2"></i>{{ Auth::user()->name }}
+                </div>
                 <div class="list-group list-group-flush my-3">
                     <a href="{{ URL('/home') }}"
-                        class="list-group-item list-group-item-action bg-transparent second-text active"><i
-                            class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                        class="list-group-item list-group-item-action bg-transparent second-text {{ Request::is('home') ? 'active' : '' }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
                     <a href="{{ URL('/slider') }}"
-                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                            class="fa fa-camera me-2"></i>Slider</a>
+                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold {{ Request::is('slider*') ? 'active' : '' }}">
+                        <i class="fas fa-file-image me-2"></i>Slider
+                    </a>
                     <a href="{{ URL('/testimoni') }}"
-                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                            class="fas fa-chart-line me-2"></i>Testimonial</a>
+                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold {{ Request::is('testimoni*') ? 'active' : '' }}">
+                        <i class="fas fa-chart-line me-2"></i>Testimonial
+                    </a>
                     <a href="{{ URL('/galeri') }}"
-                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                            class="fa fa-camera-retro me-2"></i>Galeri</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                            class="fas fa-shopping-cart me-2"></i>Store Mng</a>
+                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold {{ Request::is('galeri*') ? 'active' : '' }}">
+                        <i class="fas fa-image me-2"></i>Galeri
+                    </a>
+                    <a href="{{ URL('/roomlist') }}"
+                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold {{ Request::is('roomlist*') ? 'active' : '' }}">
+                        <i class="fas fa-house-user me-2"></i>Room
+                    </a>
+                    <a href="{{ URL('/blog') }}"
+                        class="list-group-item list-group-item-action bg-transparent second-text fw-bold {{ Request::is('blog*') ? 'active' : '' }}">
+                        <i class="fas fa-sticky-note me-2"></i>Blog
+                    </a>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();"
+                document.getElementById('logout-form').submit();"
                         class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                             class="fas fa-power-off me-2"></i>{{ __('Logout') }}</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -98,7 +100,6 @@
 {{-- Template Bawaan --}}
 {{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

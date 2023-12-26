@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 use App\Galeri;
+use Spipu\Html2Pdf\Html2Pdf;
 use Illuminate\Http\Request;
 
 class GaleriController extends Controller
 {
+    public function cetak()
+    {
+        $galeri = Galeri::all();
+        $html2pdf = new HTML2PDF('P', 'A4', 'de', false, 'UTF-8');
+        $doc = view('galeri.CetakGaleri', compact('galeri'));
+        $html2pdf->pdf->SetTitle('Cetak Galeri | PDF');
+        $html2pdf->setDefaultFont('Times');
+        $html2pdf->writeHTML($doc, false);
+        $html2pdf->Output('CETAK_GALERI.pdf');
+    }
     public function index()
     {
         $galeri = Galeri::all();

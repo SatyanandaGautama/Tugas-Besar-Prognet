@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-Use App\Galeri;
+Use App\Roomlist;
 class RoomController extends Controller
 {
     public function index()
     {
-        return view('room');
+        $roomlist = Roomlist::paginate(6);
+        return view('room', compact('roomlist'));
     }
 }

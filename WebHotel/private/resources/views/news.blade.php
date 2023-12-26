@@ -42,10 +42,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
-                        <h2>Our Rooms</h2>
+                        <h2>Blog</h2>
                         <div class="bt-option">
                             <a href="{{ URL('/') }}">Home</a>
-                            <span>Rooms</span>
+                            <span>Blog Grid</span>
                         </div>
                     </div>
                 </div>
@@ -54,49 +54,29 @@
     </div>
     <!-- Breadcrumb Section End -->
 
-    <!-- Rooms Section Begin -->
-    <section class="rooms-section spad">
+    <!-- Blog Section Begin -->
+    <section class="blog-section blog-page spad">
         <div class="container">
             <div class="row">
-                @foreach ($roomlist as $r)
+                @foreach ($blog as $b)
                     <div class="col-lg-4 col-md-6">
-                        <div class="room-item">
-                            <img src="{{ URL($r->foto) . '?p=' . rand(0, 100) }}">
-                            <div class="ri-text">
-                                <h4>{{ $r->judul }}</h4>
-                                <h3>{{ $r->harga }}$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="r-o">Size:</td>
-                                            <td>{{ $r->ukuran }} ft</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Capacity:</td>
-                                            <td>{{ $r->kapasitas }} person</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Bed:</td>
-                                            <td>{{ $r->tipe_bed }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Services:</td>
-                                            <td>{{ $r->servis }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
+                        <div class="blog-item set-bg" data-setbg="{{ URL($b->foto) . '?p=' . rand(0, 100) }}">
+                            <div class="bi-text">
+                                <span class="b-tag">{{ $b->tema_blog }}</span>
+                                <h4><a href="./blog-details.html">{{ $b->judul_blog }}</a></h4>
+                                <div class="b-time"><i class="icon_clock_alt"></i>{{ $b->updated_at->format('d F Y') }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
                 <div class="col-lg-12">
                     <div class="room-pagination">
-                        {{ $roomlist->links() }}
+                        {{ $blog->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Rooms Section End -->
+    <!-- Blog Section End -->
 @endsection

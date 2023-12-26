@@ -1,36 +1,37 @@
 <?php
-namespace App\Http\Controllers;
 
-use App\Slider;
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+Use App\Roomlist;
 use Spipu\Html2Pdf\Html2Pdf;
-class SliderController extends Controller
+use Illuminate\Http\Request;
+
+class RoomlistController extends Controller
 {
     public function cetak()
     {
-        $slider = SLider::all();
+        $roomlist = Roomlist::all();
         $html2pdf = new HTML2PDF('P', 'A4', 'de', false, 'UTF-8');
-        $doc = view('slider.CetakSlider', compact('slider'));
-        $html2pdf->pdf->SetTitle('Cetak Slider | PDF');
+        $doc = view('roomlist.CetakRoomlist', compact('roomlist'));
+        $html2pdf->pdf->SetTitle('Cetak Roomlist | PDF');
         $html2pdf->setDefaultFont('Times');
         $html2pdf->writeHTML($doc, false);
-        $html2pdf->Output('CETAK_SLIDER.pdf');
+        $html2pdf->Output('CETAK_ROOMLIST.pdf');
     }
     public function index()
     {
-        $slider = Slider::all();
-        return view('slider.IndexSlider', compact('slider'));
+        $roomlist = Roomlist::all();
+        return view('roomlist.IndexRoomlist', compact('roomlist'));
     }
     public function insert()
     {
-        return view('slider.CreateSlider');
+        return view('roomlist.CreateRoomlist');
     }
     public function store(Request $request)
     { //Request $request membaca data yg dikirim melalui Post
-        $data = Slider::create($request->all()); //(Syarat name pada input form harus sama dengan nama field database)
+        $data = Roomlist::create($request->all()); //(Syarat name pada input form harus sama dengan nama field database)
         if (!empty($request->file('foto'))) { //Ambil data foto dari form create/tambah
             $name = md5($data->id);
-            $folder = 'private/storage/slider'; //File foto tersimpan pada folder slider pada folder storage, private
+            $folder = 'private/storage/roomlist'; //File foto tersimpan pada folder slider pada folder storage, private
             $extension = $request->file('foto')->getClientOriginalExtension();
             $file = $name . "." . $extension;
             //Jika foto sudah ada sebelumnya, hapus foto tersebut
@@ -43,20 +44,26 @@ class SliderController extends Controller
                 $data->save();
             }
         }
-        return redirect(URL('/slider'));
+        return redirect(URL('/roomlist'));
     }
     public function edit($id)
     {
-        $data = Slider::find($id);
-        return view('slider.EditSlider', compact('data'));
+        $data = Roomlist::find($id);
+        return view('roomlist.EditRoomlist', compact('data'));
     }
     public function update($id, Request $request)
     {
-        $data = Slider::find($id);
+        $data = Roomlist::find($id);
         $data->judul = $request->judul;
+        $data->harga= $request->harga;
+        $data->ukuran = $request->ukuran;
+        $data->kapasitas = $request->kapasitas;
+        $data->tipe_bed = $request->tipe_bed;
+        $data->servis = $request->servis;
+        $data->deskripsi = $request->deskripsi;
         if (!empty($request->file('foto'))) { //Ambil data foto dari form create/tambah
             $name = md5($data->id);
-            $folder = 'private/storage/slider'; //File foto tersimpan pada folder slider pada folder storage, private
+            $folder = 'private/storage/roomlist'; //File foto tersimpan pada folder slider pada folder storage, private
             $extension = $request->file('foto')->getClientOriginalExtension();
             $file = $name . "." . $extension;
             //Jika foto sudah ada sebelumnya, hapus foto tersebut
@@ -70,16 +77,16 @@ class SliderController extends Controller
             }
         }
         $data->save();
-        return redirect(URL('/slider'));
+        return redirect(URL('/roomlist'));
     }
     public function destroy($id, Request $request)
     {
-        $data = Slider::find($id);
+        $data = Roomlist::find($id);
         //Jika ada file foto, maka hapus file foto tersebut
         if (file_exists($data->foto)) {
             unlink($data->foto); //Menghapus file foto yang ada difolder
         }
         $data->delete();
-        return redirect(URL('/slider'));
+        return redirect(URL('/roomlist'));
     }
 }

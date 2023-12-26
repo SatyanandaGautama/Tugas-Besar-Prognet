@@ -1,6 +1,28 @@
 @extends('layouts.mainlayouts')
 
 @section('content')
+    <style>
+        /* Add this to your existing CSS file or style tag in your HTML */
+
+        .explore-btn-container {
+            text-align: center;
+            margin-top: 20px;
+            /* Adjust margin as needed */
+        }
+
+        .primary-btn.about-btn {
+            /* Add your styles for the Explore More button */
+            color: #fff;
+            /* Button text color */
+            background-color: #c47741;
+            /* Button background color (brown) */
+            padding: 10px 10px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+    </style>
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="container">
@@ -181,126 +203,44 @@
         <div class="container-fluid">
             <div class="hp-room-items">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="hp-room-item set-bg" data-setbg="img/room/room-b1.jpg">
-                            <div class="hr-text">
-                                <h3>Double Room</h3>
-                                <h2>199$<span>/Pernight</span></h2>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="r-o">Size:</td>
-                                            <td>30 ft</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Capacity:</td>
-                                            <td>Max persion 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Bed:</td>
-                                            <td>King Beds</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Services:</td>
-                                            <td>Wifi, Television, Bathroom,...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
+                    @foreach ($roomlist as $i)
+                        <div class="col-lg-3 col-md-6">
+                            <div class="hp-room-item set-bg" data-setbg="{{ URL($i->foto) . '?p=' . rand(0, 100) }}">
+                                <div class="hr-text">
+                                    <h3>{{ $i->judul }}</h3>
+                                    <h2>{{ $i->harga }}$<span>/Pernight</span></h2>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="r-o">Size:</td>
+                                                <td>{{ $i->ukuran }} ft</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Capacity:</td>
+                                                <td>{{ $i->kapasitas }} person</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Bed:</td>
+                                                <td>{{ $i->tipe_bed }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Services:</td>
+                                                <td>{{ $i->servis }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a href="#" class="primary-btn">More Details</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="hp-room-item set-bg" data-setbg="img/room/room-b2.jpg">
-                            <div class="hr-text">
-                                <h3>Premium King Room</h3>
-                                <h2>159$<span>/Pernight</span></h2>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="r-o">Size:</td>
-                                            <td>30 ft</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Capacity:</td>
-                                            <td>Max persion 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Bed:</td>
-                                            <td>King Beds</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Services:</td>
-                                            <td>Wifi, Television, Bathroom,...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="hp-room-item set-bg" data-setbg="img/room/room-b3.jpg">
-                            <div class="hr-text">
-                                <h3>Deluxe Room</h3>
-                                <h2>198$<span>/Pernight</span></h2>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="r-o">Size:</td>
-                                            <td>30 ft</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Capacity:</td>
-                                            <td>Max persion 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Bed:</td>
-                                            <td>King Beds</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Services:</td>
-                                            <td>Wifi, Television, Bathroom,...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="hp-room-item set-bg" data-setbg="img/room/room-b4.jpg">
-                            <div class="hr-text">
-                                <h3>Family Room</h3>
-                                <h2>299$<span>/Pernight</span></h2>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="r-o">Size:</td>
-                                            <td>30 ft</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Capacity:</td>
-                                            <td>Max persion 5</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Bed:</td>
-                                            <td>King Beds</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="r-o">Services:</td>
-                                            <td>Wifi, Television, Bathroom,...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
+    <div class="explore-btn-container">
+        <a href="{{ URL('/room') }}" class="primary-btn about-btn">Explore More</a>
+    </div>
     <!-- Home Room Section End -->
 
     <!-- Testimonial Section Begin -->
@@ -354,65 +294,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="blog-item set-bg" data-setbg="img/blog/blog-1.jpg">
-                        <div class="bi-text">
-                            <span class="b-tag">Travel Trip</span>
-                            <h4><a href="#">Tremblant In Canada</a></h4>
-                            <div class="b-time">
-                                <i class="icon_clock_alt"></i> 15th April, 2019
+                @foreach ($blog as $b)
+                    <div class="col-lg-4">
+                        <div class="blog-item set-bg" data-setbg="{{ URL($b->foto) . '?p=' . rand(0, 100) }}">
+                            <div class="bi-text">
+                                <span class="b-tag">{{ $b->tema_blog }}</span>
+                                <h4><a href="#">{{ $b->judul_blog }}</a></h4>
+                                <div class="b-time">
+                                    <i class="icon_clock_alt"></i>{{ $b->updated_at->format('d F Y') }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item set-bg" data-setbg="img/blog/blog-2.jpg">
-                        <div class="bi-text">
-                            <span class="b-tag">Camping</span>
-                            <h4><a href="#">Choosing A Static Caravan</a></h4>
-                            <div class="b-time">
-                                <i class="icon_clock_alt"></i> 15th April, 2019
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item set-bg" data-setbg="img/blog/blog-3.jpg">
-                        <div class="bi-text">
-                            <span class="b-tag">Event</span>
-                            <h4><a href="#">Copper Canyon</a></h4>
-                            <div class="b-time">
-                                <i class="icon_clock_alt"></i> 21th April, 2019
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="blog-item small-size set-bg" data-setbg="img/blog/blog-wide.jpg">
-                        <div class="bi-text">
-                            <span class="b-tag">Event</span>
-                            <h4>
-                                <a href="#">Trip To Iqaluit In Nunavut A Canadian Arctic City</a>
-                            </h4>
-                            <div class="b-time">
-                                <i class="icon_clock_alt"></i> 08th April, 2019
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item small-size set-bg" data-setbg="img/blog/blog-10.jpg">
-                        <div class="bi-text">
-                            <span class="b-tag">Travel</span>
-                            <h4><a href="#">Traveling To Barcelona</a></h4>
-                            <div class="b-time">
-                                <i class="icon_clock_alt"></i> 12th April, 2019
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+            </div>
+            <div class="explore-btn-container">
+                <a href="{{ URL('/news') }}" class="primary-btn about-btn">Load More</a>
             </div>
         </div>
     </section>
+
     <!-- Blog Section End -->
 @endsection
